@@ -21,7 +21,6 @@ import (
 	redskyv1beta1 "github.com/redskyops/redskyops-controller/api/v1beta1"
 	"github.com/redskyops/redskyops-controller/redskyctl/internal/commands/generate/experiment/k8s"
 	corev1 "k8s.io/api/core/v1"
-	"k8s.io/apimachinery/pkg/util/intstr"
 )
 
 // addLocustObjectives adds metrics for objectives supported by Locust.
@@ -65,7 +64,6 @@ func addLocustLatencyMetric(obj *redskyappsv1alpha1.Objective, list *corev1.List
 		Name:     obj.Name,
 		Minimize: true,
 		Type:     redskyv1beta1.MetricPrometheus,
-		Port:     intstr.FromInt(9090),
 		Query:    `scalar(` + m + `{job="trialRun",instance="{{ .Trial.Name }}"})`,
 		Min:      obj.Min,
 		Max:      obj.Max,
